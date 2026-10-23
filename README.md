@@ -19,9 +19,11 @@ Dica: no texto do topo, palavras entre `*asteriscos*` aparecem em amarelo.
 |---|---|
 | `conteudo/site.yml` | Todos os textos da página. |
 | `conteudo/config.yml` | WhatsApp, logo, redes, Analytics, Pixel. |
-| `assets/site.css` | Cores e visual. |
-| `assets/logo.svg` | Logo padrão (rode `python3 gerar_imagens.py` se trocar). |
-| `build.py` | O gerador do site. |
+| `build.py` | O gerador do site (layout de cada seção). |
+| `assets/site.css` | Visual pronto (Tailwind, o mesmo tema do site antigo). |
+| `estilo/` | Configuração do Tailwind. Se mudar classes no `build.py`, rode `npm install && npm run css`. |
+| `fonte/logo.png` | Logo oficial em alta. Se trocar, rode `python3 gerar_imagens.py` para refazer ícones e a imagem de compartilhamento. |
+| `icones_lucide.py` | Ícones do site (Lucide). |
 | `vendor/` | Biblioteca YAML em Python puro, para o build não depender de instalação. |
 
 ## Publicação (Cloudflare)

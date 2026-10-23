@@ -15,6 +15,12 @@ content:
     fields:
     - { name: titulo, label: Título no Google, type: string }
     - { name: descricao, label: Resumo no Google (até ~160 letras), type: text }
+  - name: mensagens_whatsapp
+    label: Mensagens que já vêm escritas no WhatsApp
+    type: object
+    fields:
+    - { name: parceria, label: "Botões \"Quero ser Parceiro\"", type: text }
+    - { name: geral, label: "Demais botões (Falar com Especialista, Conversar Agora, flutuante)", type: text }
   - name: topo
     label: 1 · Topo da página
     type: object
@@ -23,15 +29,14 @@ content:
     - { name: titulo, label: Título (parte branca), type: string }
     - { name: titulo_destaque, label: Título (parte amarela), type: string }
     - { name: texto, label: "Texto (palavras entre *asteriscos* ficam amarelas)", type: text }
-    - { name: botao_principal, label: Botão amarelo, type: string }
+    - { name: botao_principal, label: Botão Quero ser Parceiro, type: string }
     - { name: botao_whatsapp, label: Botão verde, type: string }
-    - { name: mensagem_whatsapp, label: Mensagem que já vem escrita no WhatsApp, type: text }
   - name: sobre
     label: 2 · Sobre
     type: object
     fields:
     - { name: titulo, label: Título, type: string }
-    - { name: subtitulo, label: Subtítulo, type: text }
+    - { name: subtitulo, label: "Subtítulo (palavras entre *asteriscos* ficam em azul)", type: text }
     - { name: historia_titulo, label: Título da história, type: string }
     - { name: historia, label: "História (linha em branco separa parágrafos)", type: text }
     - name: pilares
@@ -41,10 +46,9 @@ content:
       fields:
       - { name: titulo, label: Título, type: string }
       - { name: texto, label: Texto, type: text }
-    - { name: chamada_titulo, label: Faixa azul · título, type: string }
-    - { name: chamada_texto, label: Faixa azul · texto, type: text }
-    - { name: chamada_botao, label: Faixa azul · botão, type: string }
-    - { name: mensagem_whatsapp, label: Faixa azul · mensagem do WhatsApp, type: text }
+    - { name: chamada_titulo, label: Faixa colorida · título, type: string }
+    - { name: chamada_texto, label: Faixa colorida · texto, type: text }
+    - { name: chamada_botao, label: Faixa colorida · botão, type: string }
   - name: parcerias
     label: 3 · Parcerias
     type: object
@@ -64,11 +68,14 @@ content:
         type: select
         options:
           values:
-          - { value: grafico, label: Gráfico subindo }
-          - { value: escudo, label: Escudo }
-          - { value: relogio, label: Relógio }
-          - { value: rota, label: Rota }
-          - { value: check, label: Visto }
+          - { value: trending-up, label: Gráfico subindo }
+          - { value: dollar-sign, label: Cifrão }
+          - { value: clock, label: Relógio }
+          - { value: map-pin, label: Localização }
+          - { value: shield, label: Escudo }
+          - { value: users, label: Pessoas }
+          - { value: zap, label: Raio }
+          - { value: target, label: Alvo }
     - { name: passos_titulo, label: Título dos passos, type: string }
     - name: passos
       label: Passos (01, 02, 03...)
@@ -82,7 +89,7 @@ content:
     type: object
     fields:
     - { name: titulo, label: Título, type: string }
-    - { name: itens, label: Itens com visto, type: string, list: true }
+    - { name: itens, label: Itens, type: string, list: true }
     - { name: numero, label: Número grande, type: string }
     - { name: numero_rotulo, label: Abaixo do número, type: string }
     - { name: numero_detalhe, label: Detalhe pequeno, type: string }
@@ -91,8 +98,8 @@ content:
     label: 5 · Números do mercado
     type: object
     fields:
-    - { name: mostrar, label: Mostrar esta seção, type: boolean }
     - { name: titulo, label: Título, type: string }
+    - { name: mostrar, label: Mostrar esta seção, type: boolean }
     - name: numeros
       label: Números
       type: object
@@ -101,7 +108,7 @@ content:
       - { name: valor, label: Número, type: string }
       - { name: rotulo, label: O que é, type: string }
   - name: proximo_passo
-    label: 6 · Próximo passo (faixa azul final)
+    label: 6 · Dê o Próximo Passo
     type: object
     fields:
     - { name: titulo, label: Título, type: string }
@@ -113,9 +120,17 @@ content:
     fields:
     - { name: titulo, label: Título, type: string }
     - { name: subtitulo, label: Subtítulo, type: text }
+    - { name: coluna_titulo, label: Título da coluna de contatos, type: string }
+    - { name: botao_whatsapp, label: Botão verde, type: string }
     - { name: form_titulo, label: Formulário · título, type: string }
     - { name: form_texto, label: Formulário · texto, type: text }
     - { name: botao_form, label: Formulário · botão, type: string }
+  - name: rodape
+    label: 8 · Rodapé
+    type: object
+    fields:
+    - { name: texto, label: Texto ao lado do logo, type: text }
+    - { name: linha, label: Linha final, type: string }
 - name: config
   label: Configurações (WhatsApp, logo, redes, Pixel)
   type: file

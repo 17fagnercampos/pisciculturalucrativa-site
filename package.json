@@ -1,0 +1,11 @@
+{
+  "name": "pisciculturalucrativa-site",
+  "private": true,
+  "description": "Site pisciculturalucrativa.com.br. O build de publicação é só python3 build.py; o npm serve apenas para regenerar o CSS quando mudar o layout.",
+  "scripts": {
+    "css": "tailwindcss -c estilo/tailwind.config.js -i estilo/entrada.css -o assets/site.css --minify"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.0"
+  }
+}

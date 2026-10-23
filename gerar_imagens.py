@@ -1,35 +1,37 @@
-"""Gera os ícones e a imagem de compartilhamento a partir de assets/logo.svg.
+"""Gera os ícones e a imagem de compartilhamento a partir de fonte/logo.png.
 
 Só precisa rodar de novo se trocar o logo:  python3 gerar_imagens.py
-(precisa de: pip install cairosvg pillow)
+(precisa de: pip install pillow)
 """
 from pathlib import Path
 
-import cairosvg
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 A = Path(__file__).parent / "assets"
-svg = (A / "logo.svg").read_bytes()
-
-for nome, tam in [("favicon-32.png", 32), ("apple-touch-icon.png", 180), ("logo-512.png", 512)]:
-    cairosvg.svg2png(bytestring=svg, write_to=str(A / nome), output_width=tam, output_height=tam)
+logo_fonte = Image.open(Path(__file__).parent / "fonte" / "logo.png").convert("RGBA")
+for nome, tam in [("favicon-32.png", 32), ("logo-512.png", 512)]:
+    logo_fonte.resize((tam, tam), Image.LANCZOS).save(A / nome)
+logo_fonte.resize((112, 112), Image.LANCZOS).save(A / "logo-112.webp", quality=90)
+apple = Image.new("RGB", (180, 180), "white")
+pequeno = logo_fonte.resize((180, 180), Image.LANCZOS)
+apple.paste(pequeno, (0, 0), pequeno)
+apple.save(A / "apple-touch-icon.png")
 
 # Imagem de compartilhamento 1200x630 (WhatsApp, Facebook, Google)
 W, H = 1200, 630
 img = Image.new("RGB", (W, H), "#06065F")
 d = ImageDraw.Draw(img)
-for y in range(H):  # degradê azul
-    t = y / H
-    r = int(10 + (4 - 10) * t)
-    g = int(10 + (4 - 10) * t)
-    b = int(184 + (61 - 184) * t)
-    d.line([(0, y), (W, y)], fill=(r, g, b))
-brilho = Image.new("L", (W, H), 0)
-ImageDraw.Draw(brilho).ellipse([760, 420, 1460, 900], fill=80)
-brilho = brilho.filter(ImageFilter.GaussianBlur(120))
-img.paste(Image.new("RGB", (W, H), "#FFC61A"), (0, 0), brilho)
+A0, A1 = (0, 0, 179), (255, 198, 26)  # mesmo degradê do topo do site
+for x in range(0, W + H, 2):
+    t = min(1, x / (W + H))
+    cor = tuple(int(A0[i] + (A1[i] - A0[i]) * t) for i in range(3))
+    d.line([(x, 0), (x - H, H)], fill=cor, width=3)
+sombra = Image.new("L", (W, H), 0)
+ImageDraw.Draw(sombra).rectangle([0, 300, 900, H], fill=150)
+sombra = sombra.filter(ImageFilter.GaussianBlur(140))
+img.paste(Image.new("RGB", (W, H), "#00004D"), (0, 0), sombra)
 
-logo = Image.open(A / "logo-512.png").convert("RGBA").resize((220, 220), Image.LANCZOS)
+logo = logo_fonte.resize((220, 220), Image.LANCZOS)
 img.paste(logo, (80, 80), logo)
 
 F = "/usr/share/fonts/opentype/inter/"
