@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Piscicultura Lucrativa">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0A0AB8"/>
+      <stop offset="1" stop-color="#05056E"/>
+    </linearGradient>
+  </defs>
+  <circle cx="32" cy="32" r="31" fill="url(#g)"/>
+  <path d="M12 36c6-9 15-12 24-10 4 1 8 3 11 6l6-5v15l-6-5c-3 3-7 5-11 6-9 2-18-1-24-7z" fill="#FFC61A"/>
+  <circle cx="21" cy="35" r="2" fill="#05056E"/>
+  <path d="M28 27c2-4 5-6 9-6l-2 6z" fill="#FFC61A"/>
+  <circle cx="45" cy="15" r="2.6" fill="none" stroke="#FFC61A" stroke-width="1.4" opacity=".8"/>
+  <circle cx="51" cy="22" r="1.6" fill="none" stroke="#FFC61A" stroke-width="1.2" opacity=".7"/>
+</svg>

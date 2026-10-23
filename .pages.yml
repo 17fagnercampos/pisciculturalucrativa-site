@@ -1,0 +1,135 @@
+# Painel de edição do site: https://app.pagescms.org (entre com a conta do GitHub)
+media:
+  input: fotos
+  output: /fotos
+content:
+- name: textos
+  label: Textos da página
+  type: file
+  path: conteudo/site.yml
+  format: yaml
+  fields:
+  - name: seo
+    label: Google (título e resumo que aparecem na busca)
+    type: object
+    fields:
+    - { name: titulo, label: Título no Google, type: string }
+    - { name: descricao, label: Resumo no Google (até ~160 letras), type: text }
+  - name: topo
+    label: 1 · Topo da página
+    type: object
+    fields:
+    - { name: selo, label: Selo acima do título, type: string }
+    - { name: titulo, label: Título (parte branca), type: string }
+    - { name: titulo_destaque, label: Título (parte amarela), type: string }
+    - { name: texto, label: "Texto (palavras entre *asteriscos* ficam amarelas)", type: text }
+    - { name: botao_principal, label: Botão amarelo, type: string }
+    - { name: botao_whatsapp, label: Botão verde, type: string }
+    - { name: mensagem_whatsapp, label: Mensagem que já vem escrita no WhatsApp, type: text }
+  - name: sobre
+    label: 2 · Sobre
+    type: object
+    fields:
+    - { name: titulo, label: Título, type: string }
+    - { name: subtitulo, label: Subtítulo, type: text }
+    - { name: historia_titulo, label: Título da história, type: string }
+    - { name: historia, label: "História (linha em branco separa parágrafos)", type: text }
+    - name: pilares
+      label: Missão, Visão e Valores
+      type: object
+      list: true
+      fields:
+      - { name: titulo, label: Título, type: string }
+      - { name: texto, label: Texto, type: text }
+    - { name: chamada_titulo, label: Faixa azul · título, type: string }
+    - { name: chamada_texto, label: Faixa azul · texto, type: text }
+    - { name: chamada_botao, label: Faixa azul · botão, type: string }
+    - { name: mensagem_whatsapp, label: Faixa azul · mensagem do WhatsApp, type: text }
+  - name: parcerias
+    label: 3 · Parcerias
+    type: object
+    fields:
+    - { name: selo, label: Selo, type: string }
+    - { name: titulo, label: Título, type: string }
+    - { name: subtitulo, label: Subtítulo, type: text }
+    - name: vantagens
+      label: Vantagens (cartões)
+      type: object
+      list: true
+      fields:
+      - { name: titulo, label: Título, type: string }
+      - { name: texto, label: Texto, type: text }
+      - name: icone
+        label: Ícone
+        type: select
+        options:
+          values:
+          - { value: grafico, label: Gráfico subindo }
+          - { value: escudo, label: Escudo }
+          - { value: relogio, label: Relógio }
+          - { value: rota, label: Rota }
+          - { value: check, label: Visto }
+    - { name: passos_titulo, label: Título dos passos, type: string }
+    - name: passos
+      label: Passos (01, 02, 03...)
+      type: object
+      list: true
+      fields:
+      - { name: titulo, label: Título, type: string }
+      - { name: texto, label: Texto, type: text }
+  - name: modelo
+    label: 4 · Modelo de parceria (20%)
+    type: object
+    fields:
+    - { name: titulo, label: Título, type: string }
+    - { name: itens, label: Itens com visto, type: string, list: true }
+    - { name: numero, label: Número grande, type: string }
+    - { name: numero_rotulo, label: Abaixo do número, type: string }
+    - { name: numero_detalhe, label: Detalhe pequeno, type: string }
+    - { name: frase, label: Frase final, type: text }
+  - name: mercado
+    label: 5 · Números do mercado
+    type: object
+    fields:
+    - { name: mostrar, label: Mostrar esta seção, type: boolean }
+    - { name: titulo, label: Título, type: string }
+    - name: numeros
+      label: Números
+      type: object
+      list: true
+      fields:
+      - { name: valor, label: Número, type: string }
+      - { name: rotulo, label: O que é, type: string }
+  - name: proximo_passo
+    label: 6 · Próximo passo (faixa azul final)
+    type: object
+    fields:
+    - { name: titulo, label: Título, type: string }
+    - { name: texto, label: Texto, type: text }
+    - { name: botao, label: Botão, type: string }
+  - name: contato
+    label: 7 · Contato
+    type: object
+    fields:
+    - { name: titulo, label: Título, type: string }
+    - { name: subtitulo, label: Subtítulo, type: text }
+    - { name: form_titulo, label: Formulário · título, type: string }
+    - { name: form_texto, label: Formulário · texto, type: text }
+    - { name: botao_form, label: Formulário · botão, type: string }
+- name: config
+  label: Configurações (WhatsApp, logo, redes, Pixel)
+  type: file
+  path: conteudo/config.yml
+  format: yaml
+  fields:
+  - { name: dominio, label: Endereço do site (não mexer), type: string }
+  - { name: nome, label: Nome da empresa, type: string }
+  - { name: whatsapp, label: WhatsApp (só números, com 55), type: string }
+  - { name: whatsapp_legivel, label: WhatsApp (como aparece no site), type: string }
+  - { name: horario, label: Horário de atendimento, type: string }
+  - { name: localizacao, label: Localização, type: string }
+  - { name: logo, label: "Logo (opcional; vazio usa o logo padrão)", type: image }
+  - { name: instagram, label: Instagram (link completo), type: string }
+  - { name: facebook, label: Facebook (link completo), type: string }
+  - { name: google_analytics_id, label: "ID do Google Analytics (ex. G-XXXXXXX)", type: string }
+  - { name: meta_pixel_id, label: ID do Pixel da Meta, type: string }

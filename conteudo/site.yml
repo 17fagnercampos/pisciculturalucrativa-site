@@ -1,0 +1,96 @@
+# Todos os textos da página. Edite pelo painel (app.pagescms.org) ou direto aqui.
+# Palavras entre *asteriscos* aparecem destacadas em amarelo.
+
+seo:
+  titulo: Piscicultura Lucrativa · Hub Nacional de Pisciculturas | Parcerias Piscicultura Brasil
+  descricao: "Piscicultura Lucrativa: hub nacional que conecta pisciculturas e produtores de alevinos a clientes em todo o Brasil. Sem custo fixo: 20% sobre as vendas realizadas."
+
+topo:
+  selo: Líder em Atendimentos
+  titulo: "#1 Hub Nacional de"
+  titulo_destaque: Pisciculturas do Brasil
+  texto: "Conectamos *piscicultores* e clientes em todo o Brasil. *Escale suas vendas de piscicultura, reduza custos* e foque na produção de *alevinos de qualidade* enquanto cuidamos das suas vendas."
+  botao_principal: Quero ser Parceiro
+  botao_whatsapp: WhatsApp
+  mensagem_whatsapp: Olá, tenho interesse em saber mais sobre a parceria com a Piscicultura Lucrativa.
+
+sobre:
+  titulo: Sobre a Piscicultura Lucrativa
+  subtitulo: Somos especialistas em conectar piscicultores de qualidade com o mercado nacional de piscicultura, criando um ecossistema próspero para todos os envolvidos na aquicultura brasileira.
+  historia_titulo: Nossa História
+  historia: |
+    A Piscicultura Lucrativa nasceu da necessidade de conectar produtores de alevinos de alta qualidade com piscicultores em todo o Brasil. Identificamos que muitas pisciculturas gastavam tempo excessivo com vendas e marketing, quando deveriam focar na sua expertise: produção de qualidade.
+
+    Nossa solução cria um hub nacional que qualifica clientes, organiza pedidos e maximiza a eficiência logística, permitindo que nossos parceiros escalem suas vendas sem comprometer a qualidade ou aumentar custos operacionais.
+  pilares:
+    - titulo: Missão
+      texto: Conectar pisciculturas de excelência com o mercado nacional, maximizando vendas e otimizando operações.
+    - titulo: Visão
+      texto: Ser o principal hub de piscicultura do Brasil, referência em qualidade e inovação no setor.
+    - titulo: Valores
+      texto: Transparência, confiança, inovação e compromisso com a excelência em cada parceria.
+  chamada_titulo: Pronto para conhecer nossa proposta completa?
+  chamada_texto: Nossa equipe está preparada para apresentar como podemos revolucionar as vendas da sua piscicultura.
+  chamada_botao: Conversar Agora
+  mensagem_whatsapp: Olá, gostaria de conhecer mais sobre a Piscicultura Lucrativa e seus serviços.
+
+parcerias:
+  selo: Parcerias Estratégicas
+  titulo: Por que ser nosso Parceiro?
+  subtitulo: Transformamos pisciculturas em negócios escaláveis, conectando você ao mercado nacional com eficiência e transparência.
+  vantagens:
+    - titulo: Vendas Escaláveis
+      texto: Fluxo constante de clientes qualificados, prontos para comprar em volumes significativos.
+      icone: grafico
+    - titulo: Zero Risco Financeiro
+      texto: Sem custo fixo! Você paga apenas 20% sobre as vendas realizadas.
+      icone: escudo
+    - titulo: Mais Tempo para Produção
+      texto: Foque na sua expertise enquanto cuidamos de todo o processo de vendas.
+      icone: relogio
+    - titulo: Logística Otimizada
+      texto: Pedidos organizados por rotas para maximizar eficiência nas entregas.
+      icone: rota
+  passos_titulo: Como Funciona Nossa Parceria?
+  passos:
+    - titulo: Divulgação Inteligente
+      texto: Investimos estrategicamente em marketing para atrair clientes qualificados que estão prontos para comprar.
+    - titulo: Atendimento Profissionalizado
+      texto: Nossa equipe cuida de todo atendimento inicial, filtrando apenas pedidos relevantes e de maior valor.
+    - titulo: Gestão de Pedidos
+      texto: Classificamos pedidos por cidades e rotas e organizamos todas as informações para sua piscicultura.
+
+modelo:
+  titulo: Nosso Modelo de Parceria
+  itens:
+    - 100% baseado em resultados
+    - Apenas 20% sobre vendas realizadas
+    - Mais da metade reinvestida em marketing
+    - Crescimento junto com a sua piscicultura
+  numero: 20%
+  numero_rotulo: Comissão sobre vendas
+  numero_detalhe: Sem custo fixo · Sem risco
+  frase: Seu crescimento é nosso sucesso. Trabalhamos juntos para maximizar seus resultados.
+
+mercado:
+  titulo: O Mercado e as Oportunidades
+  mostrar: true
+  numeros:
+    - valor: "+15%"
+      rotulo: Crescimento anual do setor de piscicultura
+    - valor: R$ 8 bi
+      rotulo: Movimentação anual do mercado brasileiro
+    - valor: "500+"
+      rotulo: Pisciculturas ativas no país
+
+proximo_passo:
+  titulo: Dê o Próximo Passo
+  texto: Estamos prontos para maximizar suas vendas e otimizar suas rotas de entrega imediatamente! Vamos começar nossa parceria?
+  botao: Quero ser Parceiro Agora
+
+contato:
+  titulo: Entre em Contato
+  subtitulo: Pronto para revolucionar as vendas da sua piscicultura? Nossa equipe está aguardando para apresentar nossa proposta personalizada.
+  form_titulo: Envie sua Mensagem
+  form_texto: Preencha o formulário e a mensagem abre pronta no WhatsApp.
+  botao_form: Enviar via WhatsApp
