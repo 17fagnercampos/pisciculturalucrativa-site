@@ -126,10 +126,12 @@ content:
   - { name: nome, label: Nome da empresa, type: string }
   - { name: whatsapp, label: WhatsApp (só números, com 55), type: string }
   - { name: whatsapp_legivel, label: WhatsApp (como aparece no site), type: string }
+  - { name: email, label: E-mail de contato, type: string }
   - { name: horario, label: Horário de atendimento, type: string }
   - { name: localizacao, label: Localização, type: string }
   - { name: logo, label: "Logo (opcional; vazio usa o logo padrão)", type: image }
   - { name: instagram, label: Instagram (link completo), type: string }
   - { name: facebook, label: Facebook (link completo), type: string }
+  - { name: tiktok, label: TikTok (link completo), type: string }
   - { name: google_analytics_id, label: "ID do Google Analytics (ex. G-XXXXXXX)", type: string }
   - { name: meta_pixel_id, label: ID do Pixel da Meta, type: string }

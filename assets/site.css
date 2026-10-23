@@ -255,3 +255,16 @@ a.info:hover { border-color: var(--azul); }
   html { scroll-behavior: auto; }
   .btn { transition: none; }
 }
+
+/* Redes sociais */
+.redes { display: flex; gap: 10px; }
+.redes a {
+  width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center;
+  background: rgba(10, 10, 184, .08); color: var(--azul); transition: background .15s ease, color .15s ease;
+}
+.redes a:hover { background: var(--azul); color: var(--amarelo); }
+.redes svg { width: 22px; height: 22px; }
+.siga { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 20px; border-radius: var(--raio); background: #fff; border: 1px solid var(--borda); }
+.siga span { font-weight: 700; color: var(--azul-escuro); }
+.redes-rodape a { background: rgba(255, 255, 255, .1); color: #fff; }
+.redes-rodape a:hover { background: var(--amarelo); color: var(--azul-noite); }

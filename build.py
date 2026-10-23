@@ -63,9 +63,29 @@ ICONES = {
     "check": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" stroke="none" opacity=".15"/><path d="m7.5 12.5 3 3 6-6.5"/></svg>',
     "telefone": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>',
     "local": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>',
+    "email": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>',
+    "instagram": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>',
+    "facebook": '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v2H8v4h2v8h4v-8h3l1-4h-4V8.5c0-.3.2-.5.5-.5Z"/></svg>',
+    "tiktok": '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 3c.4 2.2 1.8 3.7 4 4v3.2a7.4 7.4 0 0 1-4-1.3v6.6a5.9 5.9 0 1 1-5.9-5.9c.3 0 .6 0 .9.1v3.3a2.7 2.7 0 1 0 1.8 2.5V3h3.2Z"/></svg>',
     "menu": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',
     "trofeu": '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4Z"/><path d="M17 6h3a3 3 0 0 1-3 4M7 6H4a3 3 0 0 0 3 4"/></svg>',
 }
+
+
+REDES = [(k, n, str(CFG.get(k) or "").strip()) for k, n in
+         (("instagram", "Instagram"), ("facebook", "Facebook"), ("tiktok", "TikTok"))]
+REDES = [r for r in REDES if r[2]]
+EMAIL = str(CFG.get("email") or "").strip()
+
+
+def redes_html(classe="redes"):
+    if not REDES:
+        return ""
+    itens = "".join(
+        f'<a href="{e(u)}" target="_blank" rel="noopener" aria-label="{n} da {e(NOME)}">{ICONES[k]}</a>'
+        for k, n, u in REDES
+    )
+    return f'<div class="{classe}">{itens}</div>'
 
 
 def logo_url():
@@ -111,10 +131,11 @@ def cabeca(titulo, descricao, url, indexar=True):
             "availableLanguage": "Portuguese",
         },
     }
-    redes = [CFG.get("instagram"), CFG.get("facebook")]
-    redes = [r for r in redes if r]
-    if redes:
-        dados["sameAs"] = redes
+    if EMAIL:
+        dados["email"] = EMAIL
+        dados["contactPoint"]["email"] = EMAIL
+    if REDES:
+        dados["sameAs"] = [u for _, _, u in REDES]
     return f"""<!doctype html>
 <html lang="pt-BR">
 <head>
@@ -172,7 +193,8 @@ def rodape():
       <span>PISCICULTURA<small>LUCRATIVA</small></span>
     </a>
     <div>© {ano} {e(NOME)} · {e(CFG.get('localizacao'))} · Atendimento nacional<br>
-    WhatsApp <a href="{e(wa())}" target="_blank" rel="noopener">{e(WA_LEG)}</a></div>
+    WhatsApp <a href="{e(wa())}" target="_blank" rel="noopener">{e(WA_LEG)}</a>{f' · <a href="mailto:{e(EMAIL)}">{e(EMAIL)}</a>' if EMAIL else ''}</div>
+    {redes_html("redes redes-rodape")}
   </div>
 </footer>
 <a class="wa-flutuante" href="{e(wa(S['topo'].get('mensagem_whatsapp')))}" target="_blank" rel="noopener" aria-label="Conversar no WhatsApp">{ICONES["whatsapp"]}</a>
@@ -321,11 +343,16 @@ def pagina_inicial():
           <div class="icone">{ICONES["telefone"]}</div>
           <div><strong>Telefone {e(WA_LEG)}</strong><span>{e(CFG.get("horario"))}</span></div>
         </a>
+        {f"""<a class="info" href="mailto:{e(EMAIL)}">
+          <div class="icone">{ICONES["email"]}</div>
+          <div><strong>{e(EMAIL)}</strong><span>Responderemos o quanto antes</span></div>
+        </a>""" if EMAIL else ""}
         <div class="info">
           <div class="icone">{ICONES["local"]}</div>
           <div><strong>{e(CFG.get("localizacao"))}</strong><span>Atendimento em todo o Brasil</span></div>
         </div>
         <a class="btn btn-wa" href="{e(wa(msg_parceria))}" target="_blank" rel="noopener">{ICONES["whatsapp"]} Conversar Agora no WhatsApp</a>
+        {f'<div class="siga"><span>Siga a gente</span>{redes_html()}</div>' if REDES else ""}
       </div>
       <form class="form" id="form-contato">
         <h3>{e(co.get("form_titulo"))}</h3>
