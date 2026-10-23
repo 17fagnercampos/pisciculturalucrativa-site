@@ -131,6 +131,32 @@ content:
     fields:
     - { name: texto, label: Texto ao lado do logo, type: text }
     - { name: linha, label: Linha final, type: string }
+- name: politica-de-privacidade
+  label: "Página: Política de Privacidade"
+  type: file
+  path: conteudo/paginas/politica-de-privacidade.md
+  format: yaml-frontmatter
+  fields:
+  - { name: titulo, label: Título, type: string }
+  - { name: descricao, label: Resumo para o Google, type: text }
+  - name: body
+    label: Texto
+    type: rich-text
+    options:
+      format: markdown
+- name: exclusao-de-dados
+  label: "Página: Exclusão de dados"
+  type: file
+  path: conteudo/paginas/exclusao-de-dados.md
+  format: yaml-frontmatter
+  fields:
+  - { name: titulo, label: Título, type: string }
+  - { name: descricao, label: Resumo para o Google, type: text }
+  - name: body
+    label: Texto
+    type: rich-text
+    options:
+      format: markdown
 - name: config
   label: Configurações (WhatsApp, logo, redes, Pixel)
   type: file

@@ -15,6 +15,7 @@ from urllib.parse import quote
 RAIZ = Path(__file__).resolve().parent
 sys.path.insert(0, str(RAIZ / "vendor"))  # yaml em Python puro, sem instalar nada
 sys.path.insert(0, str(RAIZ))
+import markdown  # noqa: E402
 import yaml  # noqa: E402
 from icones_lucide import LUCIDE  # noqa: E402
 
@@ -186,7 +187,7 @@ def rodape():
         ("phone", "Telefone", f'<a href="tel:+{WA}" class="text-primary-foreground hover:text-secondary transition-colors">{e(WA_LEG)}</a>'),
     ]
     if EMAIL:
-        contato_itens.append(("mail", "E-mail", f'<a href="mailto:{e(EMAIL)}" class="text-sm text-primary-foreground hover:text-secondary transition-colors [overflow-wrap:anywhere]">{e(EMAIL)}</a>'))
+        contato_itens.append(("mail", "E-mail", f'<a href="mailto:{e(EMAIL)}" class="text-sm text-primary-foreground hover:text-secondary transition-colors">{e(EMAIL).replace("@", "@<wbr>")}</a>'))
     contato = "".join(
         f'<div class="flex items-center gap-3">{icone(i, "h-5 w-5 text-secondary flex-shrink-0")}<div>'
         f'<p class="text-sm text-primary-foreground/60">{r}</p>{v}</div></div>' for i, r, v in contato_itens)
@@ -228,6 +229,7 @@ def rodape():
         <div class="text-center md:text-left">
           <p class="text-primary-foreground/80 text-sm">© {ano} {e(NOME)}. Todos os direitos reservados.</p>
           <p class="text-primary-foreground/60 text-sm">{e(so.get("linha"))}</p>
+          <p class="text-sm mt-2"><a href="/politica-de-privacidade" class="text-primary-foreground/80 hover:text-secondary underline-offset-4 hover:underline">Política de Privacidade</a> <span class="text-primary-foreground/40">•</span> <a href="/exclusao-de-dados" class="text-primary-foreground/80 hover:text-secondary underline-offset-4 hover:underline">Exclusão de dados</a></p>
         </div>
         <div class="flex flex-col sm:flex-row items-center gap-4">
           <span class="text-primary-foreground/80 text-sm">Atendimento Nacional</span>
@@ -507,6 +509,44 @@ def pagina_404():
     return cabeca(f"Página não encontrada · {NOME}", "Página não encontrada.", DOMINIO + "/", indexar=False) + corpo + rodape()
 
 
+PAGINAS = ["politica-de-privacidade", "exclusao-de-dados"]
+TEXTO = ("max-w-3xl mx-auto text-foreground leading-relaxed text-base sm:text-lg "
+         "[&_p]:mb-5 [&_h2]:text-2xl [&_h2]:sm:text-3xl [&_h2]:font-bold [&_h2]:text-primary [&_h2]:mt-12 [&_h2]:mb-4 "
+         "[&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-5 [&_li]:mb-2 [&_a]:text-primary [&_a]:font-semibold [&_a]:underline "
+         "[&_a]:underline-offset-4 [&_a:hover]:text-secondary-foreground")
+
+
+def ler_pagina(slug):
+    bruto = (RAIZ / "conteudo" / "paginas" / f"{slug}.md").read_text(encoding="utf-8")
+    meta, corpo = {}, bruto
+    if bruto.startswith("---"):
+        _, fm, corpo = bruto.split("---", 2)
+        meta = yaml.safe_load(fm) or {}
+    return meta, markdown.markdown(corpo.strip())
+
+
+def pagina_texto(slug):
+    meta, corpo_html = ler_pagina(slug)
+    titulo = meta.get("titulo") or slug
+    corpo = f"""
+<main id="conteudo">
+<section class="bg-gradient-hero text-white py-14 sm:py-16 px-4 text-center">
+  <div class="container mx-auto max-w-4xl">
+    <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">{e(titulo)}</h1>
+  </div>
+</section>
+<section class="py-12 sm:py-16 px-4 bg-background">
+  <div class="container mx-auto">
+    <article class="{TEXTO}">{corpo_html}
+      <p class="text-sm text-muted-foreground mt-10">Última atualização: {date.today().strftime("%d/%m/%Y")}</p>
+    </article>
+  </div>
+</section>
+</main>"""
+    return cabeca(f"{titulo} | {NOME}" if NOME not in titulo else titulo, meta.get("descricao") or titulo,
+                  f"{DOMINIO}/{slug}") + corpo + rodape()
+
+
 def main():
     if not WA:
         sys.exit("Falta o número de WhatsApp em conteudo/config.yml")
@@ -518,12 +558,15 @@ def main():
         shutil.copytree(RAIZ / "fotos", DIST / "fotos")
     (DIST / "index.html").write_text(pagina_inicial(), encoding="utf-8")
     (DIST / "404.html").write_text(pagina_404(), encoding="utf-8")
+    for slug in PAGINAS:
+        (DIST / f"{slug}.html").write_text(pagina_texto(slug), encoding="utf-8")
     (DIST / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {DOMINIO}/sitemap.xml\n", encoding="utf-8")
+    urls = [DOMINIO + "/"] + [f"{DOMINIO}/{slug}" for slug in PAGINAS]
     (DIST / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-        f"  <url><loc>{DOMINIO}/</loc><lastmod>{date.today().isoformat()}</lastmod></url>\n"
-        "</urlset>\n",
+        + "".join(f"  <url><loc>{u}</loc><lastmod>{date.today().isoformat()}</lastmod></url>\n" for u in urls)
+        + "</urlset>\n",
         encoding="utf-8",
     )
     shutil.copy(RAIZ / "assets" / "favicon-32.png", DIST / "favicon.ico")
